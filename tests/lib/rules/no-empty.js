@@ -41,7 +41,8 @@ ruleTester.run("no-empty", rule, {
         "if (foo) { bar() } else { /**/ \n}",
         "if (foo) { bar() } else { // \n}",
         { code: "try { foo(); } catch (ex) {}", options: [{ allowEmptyCatch: true }] },
-        { code: "try { foo(); } catch (ex) {} finally { bar(); }", options: [{ allowEmptyCatch: true }] }
+        { code: "try { foo(); } catch (ex) {} finally { bar(); }", options: [{ allowEmptyCatch: true }] },
+        { code: "while (foo) {}", options: [{ allowEmptyWhile: true }] }
     ],
     invalid: [
         { code: "try {} catch (ex) {throw ex}", errors: [{ messageId: "unexpected", data: { type: "block" }, type: "BlockStatement" }] },
@@ -49,6 +50,7 @@ ruleTester.run("no-empty", rule, {
         { code: "try { foo() } catch (ex) {throw ex} finally {}", errors: [{ messageId: "unexpected", data: { type: "block" }, type: "BlockStatement" }] },
         { code: "if (foo) {}", errors: [{ messageId: "unexpected", data: { type: "block" }, type: "BlockStatement" }] },
         { code: "while (foo) {}", errors: [{ messageId: "unexpected", data: { type: "block" }, type: "BlockStatement" }] },
+        { code: "while (foo) {}", options: [{ allowEmptyWhile: false }], errors: [{ messageId: "unexpected", data: { type: "block" }, type: "BlockStatement" }] },
         { code: "for (;foo;) {}", errors: [{ messageId: "unexpected", data: { type: "block" }, type: "BlockStatement" }] },
         { code: "switch(foo) {}", errors: [{ messageId: "unexpected", data: { type: "switch" }, type: "SwitchStatement" }] },
         {
